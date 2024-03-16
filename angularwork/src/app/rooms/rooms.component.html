@@ -1,0 +1,45 @@
+<!-- <h1>welcome to {{ hotelName }}</h1> -->
+<app-header></app-header>
+
+<div [hidden]="hideRooms">
+  <div
+    *ngIf="rooms?.availableRooms > 0"
+    [ngStyle]="{ color: rooms.availableRooms ? 'green' : 'red' }"
+    [innerText]="numberOfRooms"
+  ></div>
+</div>
+
+<!-- this is my rooms-list -->
+<div *ngIf="rooms$ | async as rooms">
+  <app-rooms-list>
+    [rooms]="rooms" [price]="priceFilter.value" [title]="title"
+    (selectedRoom)="selectRoom($event)" ></app-rooms-list
+  >
+</div>
+
+<div>
+  <input
+    type="number"
+    class="form-control"
+    placeholder="Price"
+    [formControl]="priceFilter"
+  />
+</div>
+
+<!--{{roomList | json}} this gives all the data in objectiv -->
+<!-- ? checkn if this exist or not -  with the rooms?.  -->
+<div *ngIf="selectedRoom">{{ selectedRoom | json }}</div>
+
+<div>
+  <button class="btn btn button" routerLink="add" (click)="addRoom()">
+    Add Room
+  </button>
+</div>
+
+<button (click)="toggle()">Toogle</button>
+
+<button (click)="editRoom()">edit Room</button>
+
+<button (click)="deleteRoom()">delete Room</button>
+
+<h1>{{ totalbytes }}</h1>
